@@ -38,11 +38,11 @@ const UserSchema: Schema = new Schema(
                 ref: 'User' //self-reference?
             }
         ]
-    },
-    {
-        toJSON: {
-            virtuals: true,
-        },
-        id: false
-    }
+   },
 );
+
+//create user model
+const User = mongoose.model<IUser>('User', UserSchema);
+
+//export user model
+export default User;

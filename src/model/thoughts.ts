@@ -1,13 +1,63 @@
 //imports 
-import mongoose, { Schema, Document } from 'mongoose';
+import { Timestamp } from 'bson';
+import { Schema, model, Types } from 'mongoose';
 //schema set up for thoughts and reactions
 
-
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: String
+//Reaction Schema
+const reactionSchema = new Schema({
+    reactionId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+        type: String,
+        required: true,
+        maxlength: 280,
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (timestamp: Date) => new Date(timestamp).toDateString(),
+    },
 });
 
-const User = mongoose.model('User', userSchema);
+//Thought Schema
+const thoughtSchema = new Schema(
+    {
+        thoughtText: {
+            type: String,
+            required: true,
+            minlength: 1,
+            maxlength: 280,
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: (Timestamp: Date) => new Date(Timestamp).toDateString(),
+        },
+        username: {
+            type: String,
+            required: true,
+        },
+        reactions: [reactionSchema],
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
+    }
+);
 
-export default User;
+
+
+
+//create thought model
+const Thought = model('Thought', thoughtSchema);
+
+//export thought model
+export default Thought;
