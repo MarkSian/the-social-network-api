@@ -40,7 +40,9 @@ const UserSchema: Schema = new Schema(
         ]
    },
 );
-
+UserSchema.virtual('friendCount').get(function (this: IUser) {
+    return this.friends.length;
+});
 //create user model
 const User = mongoose.model<IUser>('User', UserSchema);
 

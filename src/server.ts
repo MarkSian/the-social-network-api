@@ -1,4 +1,6 @@
 import express from 'express';
+import userRoutes from './routes/userRoutes';
+import thoughtRoutes from './routes/thoughtRoutes';
 import connectDB from './config/connection';
 
 const app = express();
@@ -11,8 +13,8 @@ app.use(express.json());
 connectDB();
 
 // Routes *uncomment when routes are created
-//app.use('/api/users', userRoutes);
-//app.use('/api/routes', thoughtRoutes); 
+app.use('/api/users', userRoutes);
+app.use('/api/routes', thoughtRoutes); 
 
 // Server listening
 app.listen(PORT, () => {

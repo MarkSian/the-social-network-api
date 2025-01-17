@@ -4,7 +4,8 @@
   "description": "An application using mongDB where you can create a user account, add friends, thoughts, and reaction",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/server.ts"
+    "start": "node dist/server.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
