@@ -72,3 +72,36 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
         res.status(400).json(err);
     }
 };
+
+//Add A friend
+export const addFriend = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.userId, {$addToSet: {friends: req.params.friendId} }, { new: true }
+        );
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+//Remove A Friend
+export const removeFriend = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const user = await User.findByIdAndUpdate(
+            req.params.userId,
+            { $pull: { friends: req.params.friendId } },
+            { new: true }
+        );
+        if (!user) {
+            res.status(404).json({ message: 'No user found with this id!' });
+            return;
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
