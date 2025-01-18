@@ -44,13 +44,12 @@ exports.getThoughtById = getThoughtById;
 //Create A Thought
 const createThought = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { thoughtText, username } = req.body;
-        const newThought = new thoughts_1.default({ thoughtText, username });
-        yield newThought.save();
+        const newThought = yield thoughts_1.default.create(req.body);
+        yield users_1.default.findByIdAndUpdate(req.body.userId, { $push: { thoughts: newThought._id } });
         res.status(201).json(newThought);
     }
-    catch (error) {
-        res.status(500).json({ message: 'Error creating thought', error });
+    catch (err) {
+        res.status(500).json(err);
     }
 });
 exports.createThought = createThought;
@@ -69,7 +68,7 @@ const deleteThought = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteThought = deleteThought;
-//Update AT hought
+//Update A Thought
 const updateThought = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const updatedThought = yield thoughts_1.default.findByIdAndUpdate(req.params.userId, req.body, { new: true });

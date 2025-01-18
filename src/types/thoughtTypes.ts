@@ -10,3 +10,6 @@ export interface Thought {
     reactions:  Reaction[];
 }
 
+export interface thoughtWithReactionCount extends Thought {
+    reactionCount: number;
+}

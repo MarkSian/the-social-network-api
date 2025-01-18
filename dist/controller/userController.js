@@ -69,10 +69,10 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             res.status(404).json({ message: 'User not found' });
             return;
         }
-        res.status(200).json({ message: '' });
+        res.status(200).json({ message: 'User deleted successfully' });
     }
     catch (error) {
-        res.status(500).json({ message: 'User deleted successfully', error });
+        res.status(500).json({ message: 'error', error });
     }
 });
 exports.deleteUser = deleteUser;

@@ -53,7 +53,7 @@ export const deleteThought = async (req: Request, res: Response): Promise<void> 
     }
 };
 
-//Update AT hought
+//Update A Thought
 export const updateThought = async (req: Request, res: Response): Promise<void> => {
     try {
         const updatedThought = await Thought.findByIdAndUpdate(req.params.userId, req.body, { new: true });

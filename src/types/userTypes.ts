@@ -6,3 +6,7 @@ export interface User {
     thoughts: string[];
     friends: string[];
 }
+
+export interface userWithFriendCount extends User {
+    friendCount: number;
+}

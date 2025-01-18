@@ -9,14 +9,15 @@ const PORT = 3001; // Port number
 //Middleware
 app.use(express.json());
 
-// MongoDB connection
-connectDB();
-
 // Routes *uncomment when routes are created
 app.use('/api/users', userRoutes);
-app.use('/api/routes', thoughtRoutes); 
+app.use('/api/thoughts', thoughtRoutes);
 
-// Server listening
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// MongoDB connection
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}).catch(err => {
+    console.error('Failed to connect to the database:', err);
 });
